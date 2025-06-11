@@ -71,16 +71,42 @@
     color: #666;
     font-size: 10px;
   }
-  #genresContainer {
-    max-width: 900px;
-  }
+  #genresContent {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+  max-width: 100vw;
+}
+
+/* para esconder barra de rolagem no Firefox */
+#genresContent {
+  scrollbar-width: thin;
+  scrollbar-color: #B00615 transparent;
+}
+
+/* para esconder barra de rolagem no Chrome/Edge/Safari */
+#genresContent::-webkit-scrollbar {
+  height: 8px;
+}
+#genresContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+#genresContent::-webkit-scrollbar-thumb {
+  background-color: #B00615;
+  border-radius: 4px;
+}
   .genre-block {
-    background: white;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    padding: 10px 15px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  }
+  flex: 0 0 320px; /* largura fixa pra manter layout consistente */
+  background: white;
+  border-radius: 6px;
+  padding: 10px 15px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  height: 460px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
   .genre-title {
     font-size: 20px;
     font-weight: bold;
