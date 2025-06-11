@@ -155,49 +155,7 @@
   .book-info span {
     font-weight: bold;
   }
-
-  #readerPanel {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 2%;
-  height: 100%;
-  background: white;
-  border-left: 1px solid #ccc;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: width 0.3s ease;
-  overflow: hidden;
-  z-index: 1000;
-}
-
-#readerPanel.open {
-  width: 50%; /* ajuste conforme quiser o tamanho expandido */
-}
-
-#readerFrame {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-
-  #closeReader {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1001;
-  background: #B00615;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  display: none;
-}
-#readerPanel.open + #closeReader {
-  display: block;
-}
-
+  
 </style>
 </head>
 <body>
@@ -310,10 +268,9 @@
       if (pdfUrl) {
         li.style.cursor = 'pointer';
         li.title = 'Clique para abrir o livro';
-        li.addEventListener('click', () => {
-          window.open(pdfUrl, '_blank');
-          results.hidden = true;
-        });
+        bookDiv.addEventListener('click', () => {
+  window.open(pdfUrl, '_blank');
+});
       } else {
         li.style.color = 'gray';
         li.title = 'PDF não disponível para este livro';
@@ -487,11 +444,6 @@
 
   loadGroupedBooks();
 </script>
-  
-<div id="readerPanel">
-  <iframe id="readerFrame" src="" frameborder="0"></iframe>
-  <button id="closeReader" onclick="closeReader()">✖</button>
-</div>
 
 </body>
 </html>
