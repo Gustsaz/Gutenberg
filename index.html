@@ -72,41 +72,35 @@
     font-size: 10px;
   }
   #genresContent {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  scroll-behavior: smooth;
-  max-width: 100vw;
-}
-
-/* para esconder barra de rolagem no Firefox */
-#genresContent {
-  scrollbar-width: thin;
-  scrollbar-color: #B00615 transparent;
-}
-
-/* para esconder barra de rolagem no Chrome/Edge/Safari */
-#genresContent::-webkit-scrollbar {
-  height: 8px;
-}
-#genresContent::-webkit-scrollbar-track {
-  background: transparent;
-}
-#genresContent::-webkit-scrollbar-thumb {
-  background-color: #B00615;
-  border-radius: 4px;
-}
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    max-width: 100vw;
+    scrollbar-width: thin;
+    scrollbar-color: #B00615 transparent;
+  }
+  #genresContent::-webkit-scrollbar {
+    height: 8px;
+  }
+  #genresContent::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #genresContent::-webkit-scrollbar-thumb {
+    background-color: #B00615;
+    border-radius: 4px;
+  }
   .genre-block {
-  flex: 0 0 320px; /* largura fixa pra manter layout consistente */
-  background: white;
-  border-radius: 6px;
-  padding: 10px 15px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  height: 460px;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-}
+    flex: 0 0 320px;
+    background: white;
+    border-radius: 6px;
+    padding: 10px 15px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    height: 460px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
   .genre-title {
     font-size: 20px;
     font-weight: bold;
@@ -155,7 +149,6 @@
   .book-info span {
     font-weight: bold;
   }
-  
 </style>
 </head>
 <body>
@@ -173,7 +166,6 @@
 </div>
 
 <script>
-  // --- Parte 1: Barra de pesquisa com sugestões ---
   const input = document.getElementById('searchInput');
   const results = document.getElementById('results');
 
@@ -268,9 +260,9 @@
       if (pdfUrl) {
         li.style.cursor = 'pointer';
         li.title = 'Clique para abrir o livro';
-        bookDiv.addEventListener('click', () => {
-  window.open(pdfUrl, '_blank');
-});
+        li.addEventListener('click', () => {
+          window.open(pdfUrl, '_blank');
+        });
       } else {
         li.style.color = 'gray';
         li.title = 'PDF não disponível para este livro';
@@ -281,16 +273,13 @@
     });
   }
 
-  // Esconder sugestões ao clicar fora
   document.addEventListener('click', (e) => {
     if (!document.getElementById('searchForm').contains(e.target)) {
       results.hidden = true;
     }
   });
 
-  // --- Parte 2: Livros agrupados por gênero fixos abaixo da pesquisa ---
-
- const genreKeywords = {
+  const genreKeywords = {
     'Suspense': ['suspense', 'thriller', 'crime', 'mystery'],
     'Horror': ['horror', 'ghost', 'supernatural', 'gothic'],
     'Romance': ['romance', 'love', 'romantic'],
@@ -315,6 +304,7 @@
   }
 
   async function loadGroupedBooks() {
+    const genresContent = document.getElementById('genresContent');
     genresContent.textContent = 'Carregando livros...';
 
     try {
@@ -328,7 +318,6 @@
         return;
       }
 
-      // Agrupar pelos gêneros fixos baseados no mapa acima
       const groups = {
         'Suspense': [],
         'Horror': [],
@@ -346,11 +335,10 @@
 
       genresContent.innerHTML = '';
 
-      // Ordenar conforme ordem fixa dos gêneros
       const fixedOrder = ['Suspense', 'Horror', 'Romance', 'Ficção Científica', 'Aventura', 'Fantasia', 'Outros'];
 
       fixedOrder.forEach(genre => {
-        if (groups[genre].length === 0) return; // não mostra se vazio
+        if (groups[genre].length === 0) return;
 
         const block = document.createElement('div');
         block.className = 'genre-block';
@@ -413,18 +401,8 @@
             bookDiv.style.cursor = 'pointer';
             bookDiv.title = 'Clique para abrir o livro';
             bookDiv.addEventListener('click', () => {
-  const panel = document.getElementById('readerPanel');
-  const frame = document.getElementById('readerFrame');
-  frame.src = pdfUrl;
-  panel.classList.add('open');
-});
-            function closeReader() {
-  const panel = document.getElementById('readerPanel');
-  const frame = document.getElementById('readerFrame');
-  panel.classList.remove('open');
-  frame.src = '';
-}
-
+              window.open(pdfUrl, '_blank');
+            });
           } else {
             bookDiv.style.color = 'gray';
             bookDiv.title = 'PDF não disponível para este livro';
